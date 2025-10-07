@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualisation des scans de port</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #181c20; color: #f8f8f8; }
+        #log { white-space: pre; background: #222; padding: 1em; border-radius: 8px; max-width: 900px; margin: 2em auto; }
+        h1 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Scans de port détectés (Live)</h1>
+    <div id="log">Chargement...</div>
+    <script>
+        async function fetchLogs() {
+            const resp = await fetch("/api/logs");
+            const lines = await resp.json();
+            document.getElementById("log").textContent = lines.join("\n");
+        }
+        setInterval(fetchLogs, 2000);
+        fetchLogs();
+    </script>
+</body>
+</html>
